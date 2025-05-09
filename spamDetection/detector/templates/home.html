@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Spam Detector</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #e0e0e0;
+    }
+
+    .container {
+      background: rgba(20, 20, 20, 0.85);
+      backdrop-filter: blur(8px);
+      padding: 40px 30px;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+      border: 1px solid rgba(0, 255, 255, 0.15);
+    }
+
+    h1 {
+      font-size: 2em;
+      color: #00ffff;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 1em;
+      color: #aaa;
+      margin-bottom: 25px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .form-control, textarea {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      background: #1f1f1f;
+      border: 1px solid #333;
+      color: #eee;
+      font-size: 1em;
+    }
+
+    .btn {
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      border: none;
+      padding: 14px 28px;
+      font-size: 1em;
+      color: #fff;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00c6ff;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00c6ff;
+    }
+
+    .result {
+      margin-top: 25px;
+      padding: 18px;
+      border-radius: 10px;
+      font-size: 1.1em;
+      font-weight: 600;
+    }
+
+    .result.spam {
+      background-color: #330000;
+      color: #ff4d4d;
+      border: 1px solid #ff4d4d;
+    }
+
+    .result.ham {
+      background-color: #002b1f;
+      color: #00ff99;
+      border: 1px solid #00ff99;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.7em;
+      }
+
+      .btn {
+        font-size: 0.9em;
+        padding: 12px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1> ✉ Spam Checker  </h1>
+    <p> Drop your message below — let the scanner do its trick ⚡ </p>
+    <form method="post">
+      {% csrf_token %}
+      {{form.as_p}}
+      <button type="submit" class="btn"><i class="fas fa-search"></i> Scan</button>
+    </form>
+    {% if result %}
+      <div class="result {{ result|lower }}">
+        <h2>The Message is: {{ result }}</h2>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
